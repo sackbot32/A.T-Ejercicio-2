@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
         hAxis = Input.GetAxisRaw("Horizontal");
         jumpInput = Input.GetAxisRaw("Jump") > 0;
 
-        print("h:" + hAxis + " v:" + vAxis + " jumping:" + jumpInput);
+        //print("h:" + hAxis + " v:" + vAxis + " jumping:" + jumpInput);
     }
     /// <summary>
     /// Uses axis and speed to move player
@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
     /// </returns>
     private bool IsGrounded()
     {
+        Debug.DrawRay(playerFeet.transform.position, Vector2.down*0.5f, Color.red);
         return Physics2D.Raycast(playerFeet.transform.position, Vector2.down,0.5f,groundLayer);
     }
 
