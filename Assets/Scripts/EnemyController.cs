@@ -68,7 +68,7 @@ public class EnemyController : MonoBehaviour
     /// <param name="dir">
     /// Direction of ray
     /// </param>
-    /// <returns></returns>
+    /// <returns>if it has hit something</returns>
     private bool GeneralDetection(float lenght, Vector2 dir)
     {
         Debug.DrawRay(groundDetect.position, dir * lenght, Color.magenta, 0.1f);
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
 
     
     /// <summary>
-    /// Move enemy in an exact direction set before at the speed set
+    /// Move enemy in an exact direction set before at the speed set depending of what type of enemy is it
     /// </summary>
     private void EnemyMove()
     {
@@ -99,7 +99,7 @@ public class EnemyController : MonoBehaviour
                 }
                 break;
             case EnemyType.Jumper:
-                if(GeneralDetection(rayLenght, direcction))
+                if(GeneralDetection(rayLenght, new Vector2(direcction.x,0) ))
                 {
                     direcction = new Vector3(-direcction.x, direcction.y,0);
                 }
@@ -129,6 +129,17 @@ public class EnemyController : MonoBehaviour
                 currentSine = 270;
             }
             yield return new WaitForSeconds(time);
+        }
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("Player"))
+        {
+            PlayerHealth playerH = collision.gameObject.GetComponent<PlayerHealth>();
+            if(playerH != null)
+            {
+                playerH.TakeDamage(1);
+            }
         }
     }
 }
