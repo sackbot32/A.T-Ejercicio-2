@@ -20,6 +20,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
+        GameManager.instance.hudController.UpdateHealth(currentHealth);
         canTakeDamage = true;
         sP = GetComponentInChildren<SpriteRenderer>();
     }
@@ -32,6 +33,7 @@ public class PlayerHealth : MonoBehaviour
         {
             print("Damage taken");
             currentHealth -= damage;
+            GameManager.instance.hudController.UpdateHealth(currentHealth);
             if(currentHealth <= 0)
             {
                 GameManager.instance.EndState(false);
@@ -41,6 +43,9 @@ public class PlayerHealth : MonoBehaviour
             }
         }
     }
+
+
+
 
     private IEnumerator Blink(float blinkDuration)
     {
@@ -56,4 +61,5 @@ public class PlayerHealth : MonoBehaviour
         sP.color = new Color(1, 1, 1, 1f);
         canTakeDamage = true;
     }
+
 }

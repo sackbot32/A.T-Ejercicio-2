@@ -1,0 +1,52 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using TMPro;
+using UnityEngine;
+
+public class HudController : MonoBehaviour
+{
+    //Level timer
+    private int minutes = 0;
+    private int seconds = 0;
+    //Health
+
+    //Components
+    [Header("Hud Texts")]
+    [SerializeField] private TextMeshProUGUI timeText;
+    [SerializeField] private TextMeshProUGUI healthText;
+    [SerializeField] private TextMeshProUGUI pointText;
+
+    private void Start()
+    {
+    }
+    private void OnGUI()
+    {
+        timeText.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        GameManager.instance.LevelTime -= Time.deltaTime;
+        seconds = (int)GameManager.instance.LevelTime % 60; //Remainder
+        minutes = (int)GameManager.instance.LevelTime / 60;
+    }
+
+    /// <summary>
+    /// Recieves a health value to change the ammount of health shown
+    /// </summary>
+    /// <param name="health"></param>
+    public void UpdateHealth(float health)
+    {
+        healthText.text = health.ToString("00");
+    }
+    /// <summary>
+    /// Recieves a point value to change the ammount of points shown
+    /// </summary>
+    /// <param name="points"></param>
+    public void UpdatePoints(int points)
+    {
+        pointText.text = points.ToString("00000");
+    }
+}

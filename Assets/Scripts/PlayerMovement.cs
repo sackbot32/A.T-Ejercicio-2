@@ -130,4 +130,14 @@ public class PlayerMovement : MonoBehaviour
             spriteAnim.Play("PlayerIdle");
         }
     }
+
+    //This would go on its own code but I put it in here to make it quicker
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("PowerUp"))
+        {
+            Destroy(collision.gameObject);
+            GameManager.instance.GetPoint(1);
+        }
+    }
 }
