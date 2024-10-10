@@ -16,6 +16,10 @@ public class HudController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timeText;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private TextMeshProUGUI pointText;
+    [SerializeField] private TextMeshProUGUI pointLeftText;
+    [SerializeField] private GameObject hudParent;
+
+    public GameObject HudParent { get => hudParent; set => hudParent = value; }
 
     private void Start()
     {
@@ -48,5 +52,13 @@ public class HudController : MonoBehaviour
     public void UpdatePoints(int points)
     {
         pointText.text = points.ToString("00000");
+    }
+    /// <summary>
+    /// Recieves value to change the ammount of the points left shown
+    /// </summary>
+    /// <param name="left"></param>
+    public void UpdateLeft(int left)
+    {
+        pointLeftText.text = left.ToString("00");
     }
 }

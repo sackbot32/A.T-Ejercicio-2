@@ -17,12 +17,35 @@ public class GameManager : MonoBehaviour
     //Level settings
     [Header("LevelSettings")]
     [SerializeField]
+    [Tooltip("Time in seconds that the level has")]
     private int defaultTime;
-    private float levelTime;
-    private int points;
     [SerializeField]
     [Tooltip("GameObject that holds all points")]
     private GameObject pointHolder;
+    [SerializeField]
+    [Tooltip("How many points will each second give when the level is over")]
+    private int timePointsMultiplier;
+    [SerializeField]
+    [Tooltip("How many points will each health point give when the level is over")]
+    private int healthPointsMultiplier;
+    [SerializeField]
+    [Tooltip("How many points will a power up give")]
+    private int pointValue;
+    [SerializeField]
+    [Tooltip("What percent of max points does the player need to get 3 stars")]
+    [Range(1f, 100f)]
+    //1/2 percent will be the one needed for 2 stars, 1/4 for 1 star
+    private int percentForMaxRating;
+
+
+
+    //LevelInformation
+    private float levelTime;
+    private int points;
+    [SerializeField]
+    [Tooltip("Only on inspector to be seen, don't modify unless testing")]
+    private int maxPosiblePoints;
+    
 
     public float LevelTime { get => levelTime; set => levelTime = value; }
 
@@ -32,8 +55,13 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-        levelTime = defaultTime;
+        maxPosiblePoints = (defaultTime* timePointsMultiplier) + 
+            (Mathf.CeilToInt(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().MaxHealth) * healthPointsMultiplier) + 
+            pointHolder.transform.childCount * pointValue;
         hudController = GetComponent<HudController>();
+        hudController.HudParent.SetActive(true);
+        levelTime = defaultTime;
+        hudController.UpdateLeft(pointHolder.transform.childCount);
         Time.timeScale = 1.0f;
         endPanel.SetActive(false);
     }
@@ -55,11 +83,15 @@ public class GameManager : MonoBehaviour
         
         points += pointAdded;
         hudController.UpdatePoints(points);
+        //We invoke to check if all the points have been collected, since its if its done immendiently it gets the previous ammount of child
         Invoke("DoesWin",0.05f);
     }
-    
+    /// <summary>
+    /// Used to check if the player has collected all items and if the player has, it wins the game
+    /// </summary>
     private void DoesWin()
     {
+        hudController.UpdateLeft(pointHolder.transform.childCount);
         if (pointHolder.transform.childCount <= 0)
         {
             EndState(true);
@@ -75,13 +107,26 @@ public class GameManager : MonoBehaviour
     public void EndState(bool win)
     {
         Time.timeScale = 0;
+        hudController.HudParent.SetActive(false);
         if (win)
         {
-            endPanel.GetComponent<Image>().color = Color.green - new Color(0, 0, 0, 0.5f); ;
+            endPanel.GetComponent<Image>().color = Color.green - new Color(0, 0, 0, 0.5f);
+            //The child on the 1 position of the endPanel is a gameObject with all data that has to be shown to the player when they win
+            endPanel.transform.GetChild(1).gameObject.SetActive(true);
+            //The child on the 2 position of the endPanel is a gameObject with the button to go back (maybe add a retry button?)
+            endPanel.transform.GetChild(2).gameObject.SetActive(false);
+            int playerHealth = Mathf.CeilToInt(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().CurrentHealth);
+            int finalResult = points + (Mathf.CeilToInt(levelTime) * timePointsMultiplier) + (playerHealth * healthPointsMultiplier);
+            endPanel.transform.GetChild(1).gameObject.GetComponent<WinHud>().WinningShow(finalResult,maxPosiblePoints,percentForMaxRating);
+            
             endPanel.GetComponentInChildren<TMP_Text>().text = "Ganaste";
         } else
         {
             endPanel.GetComponent<Image>().color = Color.red - new Color(0,0,0,0.5f);
+            //The child on the 1 position of the endPanel is a gameObject with all data that has to be shown to the player when they win
+            endPanel.transform.GetChild(1).gameObject.SetActive(false);
+            //The child on the 2 position of the endPanel is a gameObject with the button to go back (maybe add a retry button?)
+            endPanel.transform.GetChild(2).gameObject.SetActive(true);
             endPanel.GetComponentInChildren<TMP_Text>().text = "Perdiste :c";
         }
         endPanel.SetActive(true);

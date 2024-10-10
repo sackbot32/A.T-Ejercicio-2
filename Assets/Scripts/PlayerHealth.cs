@@ -16,11 +16,15 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private Color blinkColor = Color.white;
     [SerializeField] private float blinkDuration;
     private SpriteRenderer sP;
+
+    public float CurrentHealth { get => currentHealth; set => currentHealth = value; }
+    public float MaxHealth { get => maxHealth; set => maxHealth = value; }
+
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
-        GameManager.instance.hudController.UpdateHealth(currentHealth);
+        CurrentHealth = maxHealth;
+        GameManager.instance.hudController.UpdateHealth(CurrentHealth);
         canTakeDamage = true;
         sP = GetComponentInChildren<SpriteRenderer>();
     }
@@ -32,9 +36,9 @@ public class PlayerHealth : MonoBehaviour
         if(canTakeDamage)
         {
             print("Damage taken");
-            currentHealth -= damage;
-            GameManager.instance.hudController.UpdateHealth(currentHealth);
-            if(currentHealth <= 0)
+            CurrentHealth -= damage;
+            GameManager.instance.hudController.UpdateHealth(CurrentHealth);
+            if(CurrentHealth <= 0)
             {
                 GameManager.instance.EndState(false);
             } else
