@@ -137,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.tag.Equals("PowerUp"))
         {
             Destroy(collision.gameObject);
+            AudioManager.instance.PlayAudio(1);
             GameManager.instance.GetPoint(1);
         }
     }

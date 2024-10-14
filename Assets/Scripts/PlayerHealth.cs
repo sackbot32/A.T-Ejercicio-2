@@ -37,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         {
             print("Damage taken");
             CurrentHealth -= damage;
+            AudioManager.instance.PlayAudio(2);
             GameManager.instance.hudController.UpdateHealth(CurrentHealth);
             if(CurrentHealth <= 0)
             {
