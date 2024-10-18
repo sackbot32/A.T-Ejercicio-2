@@ -24,7 +24,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         CurrentHealth = maxHealth;
-        GameManager.instance.hudController.UpdateHealth(CurrentHealth);
+        LevelManager.instance.hudController.UpdateHealth(CurrentHealth);
         canTakeDamage = true;
         sP = GetComponentInChildren<SpriteRenderer>();
     }
@@ -38,10 +38,10 @@ public class PlayerHealth : MonoBehaviour
             print("Damage taken");
             CurrentHealth -= damage;
             AudioManager.instance.PlayAudio(2);
-            GameManager.instance.hudController.UpdateHealth(CurrentHealth);
+            LevelManager.instance.hudController.UpdateHealth(CurrentHealth);
             if(CurrentHealth <= 0)
             {
-                GameManager.instance.EndState(false);
+                LevelManager.instance.EndState(false);
             } else
             {
                 StartCoroutine(Blink(blinkDuration));

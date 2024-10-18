@@ -32,9 +32,9 @@ public class HudController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameManager.instance.LevelTime -= Time.deltaTime;
-        seconds = (int)GameManager.instance.LevelTime % 60; //Remainder
-        minutes = (int)GameManager.instance.LevelTime / 60;
+        LevelManager.instance.LevelTime -= Time.deltaTime;
+        seconds = (int)LevelManager.instance.LevelTime % 60; //Remainder
+        minutes = (int)LevelManager.instance.LevelTime / 60;
     }
 
     /// <summary>

@@ -138,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(collision.gameObject);
             AudioManager.instance.PlayAudio(1);
-            GameManager.instance.GetPoint(1);
+            LevelManager.instance.GetPoint(1);
         }
     }
 }

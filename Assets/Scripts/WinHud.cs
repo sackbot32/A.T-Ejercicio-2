@@ -11,6 +11,8 @@ public class WinHud : MonoBehaviour
     [SerializeField]
     private TMP_Text finalPointsText;
     [SerializeField]
+    private TMP_Text finalTotalPointsText;
+    [SerializeField]
     private Image[] stars;
     void Awake()
     {
@@ -20,9 +22,10 @@ public class WinHud : MonoBehaviour
         }
     }
 
-    public void WinningShow(int points, int maxPoints,int percentForMax)
+    public void WinningShow(int points,int total, int maxPoints,int percentForMax)
     {
         finalPointsText.text = points.ToString("00000");
+        finalTotalPointsText.text = total.ToString("00000");
         //since we are using only int I am multiplying them by the percents to get the same result as if we were using decimal values
         switch(points)
         {
