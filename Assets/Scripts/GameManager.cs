@@ -8,19 +8,21 @@ public class GameManager : MonoBehaviour
 
     private int totalPoints;
 
-    private string pointName;
+    public const string totalPrefName = "Total";
+    public const string highPrefName = "High";
+    public const string levelBeatenPrefName = "LvlBeaten";
 
     public int TotalPoints { get => totalPoints; set => totalPoints = value; }
 
     // Start is called before the first frame update
     void Start()
     {
-        pointName = "Total";
+
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
-            totalPoints = PlayerPrefs.GetInt(pointName);
+            totalPoints = PlayerPrefs.GetInt(totalPrefName);
         } else
         {
             Destroy(gameObject);
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
     public int UpdateTotal(int newScore)
     {
         TotalPoints += newScore;
-        PlayerPrefs.SetInt(pointName,totalPoints);
+        PlayerPrefs.SetInt(totalPrefName,totalPoints);
         LevelManager.instance?.hudController.UpdatePoints(TotalPoints);
         return totalPoints;
     }

@@ -142,4 +142,21 @@ public class LevelManager : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+
+    public void UpdateLevelBeaten(int levelBeaten)
+    {
+        if(levelBeaten > PlayerPrefs.GetInt(GameManager.levelBeatenPrefName))
+        {
+            PlayerPrefs.SetInt(GameManager.levelBeatenPrefName,levelBeaten);
+        }
+    }
+
+    public void UpdateHighScore()
+    {
+        if(PlayerPrefs.GetInt(GameManager.totalPrefName) > PlayerPrefs.GetInt(GameManager.highPrefName))
+        {
+            PlayerPrefs.SetInt("High", PlayerPrefs.GetInt(GameManager.totalPrefName));
+        }
+        PlayerPrefs.SetInt(GameManager.totalPrefName, 0);
+    }
 }

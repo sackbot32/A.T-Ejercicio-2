@@ -5664,6 +5664,30 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 384019931}
         m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: UpdateLevelBeaten
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 384019931}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
+        m_MethodName: UpdateHighScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 384019931}
+        m_TargetAssemblyTypeName: LevelManager, Assembly-CSharp
         m_MethodName: ChangeScene
         m_Mode: 5
         m_Arguments:
@@ -6393,6 +6417,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1591924952}
+  - component: {fileID: 1591924953}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6415,6 +6440,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1591924953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591924951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228ad89e55537b147ab3109bc12dc09d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1757719309 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1276037283527400347, guid: f2fcfacf7834d9f45a0115ed7dc2e66e, type: 3}
